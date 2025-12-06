@@ -51,8 +51,7 @@ builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntentica
     }
 );
 
-var connectionString = builder.Configuration["ConnectionStrings:DBConnectionString"]
-                       ?? builder.Configuration["DBConnectionString"];
+var connectionString = builder.Configuration["ConnectionStrings:DBConnectionString"];
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
