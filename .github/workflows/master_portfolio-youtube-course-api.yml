@@ -66,6 +66,7 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B976378AA5364DE7BB63288EA461616C }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_FA762ED0684E42578E8EE7C4B1360FEB }}
 
+       # Add db connection string to app settings from GitHub Secrets
       - name: Set DB connection string in Azure Web App settings
         run: az webapp config appsettings set --resource-group "portfolio_youtube_course" --name "portfolio-youtube-course-api" --settings 'ConnectionStrings__DBConnectionString=${{ secrets.DBCONNECTIONSTRING }}'
 
