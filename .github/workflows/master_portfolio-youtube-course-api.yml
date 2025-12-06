@@ -67,11 +67,7 @@ jobs:
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_FA762ED0684E42578E8EE7C4B1360FEB }}
 
       - name: Set DB connection string in Azure Web App settings
-        run: |
-          az webapp config appsettings set \
-            --resource-group "portfolio_youtube_course" \
-            --name "portfolio-youtube-course-api" \
-            --settings "ConnectionStrings__DBConnectionString=$
+        run: az webapp config appsettings set --resource-group "portfolio_youtube_course" --name "portfolio-youtube-course-api" --settings 'ConnectionStrings__DBConnectionString=${{ secrets.DBCONNECTIONSTRING }}'
 
       - name: Install dotnet-ef tool
         run: dotnet tool install --global dotnet-ef --version 8.*
