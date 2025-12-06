@@ -8,11 +8,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-#if !DEBUG
-string keyVaultUrl = builder.Configuration["KeyVaultUrl"] ?? "";
-builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
-#endif
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -78,6 +73,7 @@ app.UseHttpsRedirection();
 
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

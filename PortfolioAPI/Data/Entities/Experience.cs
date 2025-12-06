@@ -13,5 +13,6 @@ namespace PortfolioAPI.Data.Entities
         public string Summary { get; set; }
         public string ImgPath { get; set; }
         public string State { get; set; } = "Active";
+        public int Order { get; set; } = 1;
     }
 }

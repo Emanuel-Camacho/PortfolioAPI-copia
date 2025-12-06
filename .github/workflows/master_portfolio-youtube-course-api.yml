@@ -66,20 +66,21 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B976378AA5364DE7BB63288EA461616C }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_FA762ED0684E42578E8EE7C4B1360FEB }}
 
+      - name: Set DB connection string in Azure Web App settings
+        run: |
+          az webapp config appsettings set \
+            --resource-group "portfolio_youtube_course" \
+            --name "portfolio-youtube-course-api" \
+            --settings "ConnectionStrings__DBConnectionString=$
+
       - name: Install dotnet-ef tool
         run: dotnet tool install --global dotnet-ef --version 8.*
        
-
-      - name: Get DB connection string from Key Vault
-        shell: pwsh
-        run: |
-          $secret = az keyvault secret show --vault-name portfolioapi-kv-001 --name DBConnectionString --query value -o tsv
-          echo "ConnectionStrings__DBConnectionString=$
-
       - name: Update database with EF Core migrations
         run: dotnet ef database update --project PortfolioAPI/PortfolioAPI.csproj --startup-project PortfolioAPI/PortfolioAPI.csproj
         env:
           ASPNETCORE_ENVIRONMENT: Production
+          ConnectionStrings__DBConnectionString: ${{ secrets.DBCONNECTIONSTRING }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
