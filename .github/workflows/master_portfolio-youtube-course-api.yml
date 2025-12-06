@@ -68,7 +68,14 @@ jobs:
 
       - name: Install dotnet-ef tool
         run: dotnet tool install --global dotnet-ef --version 8.*
-          
+       
+
+      - name: Get DB connection string from Key Vault
+        shell: pwsh
+        run: |
+          $secret = az keyvault secret show --vault-name portfolioapi-kv-001 --name DBConnectionString --query value -o tsv
+          echo "ConnectionStrings__DBConnectionString=$
+
       - name: Update database with EF Core migrations
         run: dotnet ef database update --project PortfolioAPI/PortfolioAPI.csproj --startup-project PortfolioAPI/PortfolioAPI.csproj
         env:
