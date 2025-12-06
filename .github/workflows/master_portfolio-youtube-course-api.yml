@@ -76,6 +76,7 @@ jobs:
         run: dotnet ef database update --project PortfolioAPI/PortfolioAPI.csproj --startup-project PortfolioAPI/PortfolioAPI.csproj
         env:
           ASPNETCORE_ENVIRONMENT: Production
+          ConnectionStrings__DBConnectionString: ${{ secrets.DBCONNECTIONSTRING }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
