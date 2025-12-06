@@ -1,3 +1,4 @@
+using Azure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -6,6 +7,11 @@ using PortfolioAPI.Data.Repositories;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+#if !DEBUG
+string keyVaultUrl = builder.Configuration["KeyVaultUrl"] ?? "";
+builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
+#endif
 
 // Add services to the container.
 
@@ -50,8 +56,10 @@ builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntentica
     }
 );
 
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(
-builder.Configuration["ConnectionStrings:DBConnectionString"]));
+var connectionString = builder.Configuration["ConnectionStrings:DBConnectionString"]
+                       ?? builder.Configuration["DBConnectionString"];
+
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddTransient<ExperienceRepository>();
 builder.Services.AddTransient<UserRepository>();
