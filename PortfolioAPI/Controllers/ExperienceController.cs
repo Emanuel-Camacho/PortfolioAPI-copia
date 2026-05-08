@@ -33,6 +33,7 @@ namespace PortfolioAPI.Controllers
             return Ok(_experienceRepository.Get(titleForSearch));
         }
 
+
         [Authorize]
         [HttpPost]
         public IActionResult AddExperience([FromBody] ExperienceForCreationAndUpdateRequest requestdto)
