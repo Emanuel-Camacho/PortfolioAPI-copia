@@ -1,4 +1,3 @@
-using Azure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -51,10 +50,14 @@ builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntentica
     }
 );
 
+// configuracion de la base de datos
 var connectionString = builder.Configuration["ConnectionStrings:DBConnectionString"];
 
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlite(connectionString));
+
+
+// difinimos que las clases van a tener un ciclo de vida transient
 builder.Services.AddTransient<ExperienceRepository>();
 builder.Services.AddTransient<UserRepository>();
 

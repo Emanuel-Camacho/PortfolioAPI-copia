@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using PortfolioAPI.Data.Entities;
 using PortfolioAPI.Data.Repositories;
 using PortfolioAPI.Models;
+using System.Drawing;
 
 namespace PortfolioAPI.Controllers
 {
@@ -11,15 +12,21 @@ namespace PortfolioAPI.Controllers
     [ApiController]
     public class ExperienceController : ControllerBase
     {
-        //1- Propiedad privada y de solo lectura del tipo de la clase que quiero inyectar;
+        // 1 - Propiedad privada y de solo lectura del tipo de la clase que quiero inyectar;
+        // esta variable solo se puede usar dentro de la clase ExperienceController y guarda objetos tipo ExperienceRepository
         private readonly ExperienceRepository _experienceRepository;
 
-        //2 - Asignarle en el constructor un parametro del tipo de la clase que quiero inyectar a la propiedad privada anterior
+        // 2 - constructor que asigna un parametro del tipo de la clase que quiero inyectar a la propiedad privada 
+        // el constructor guardar el objeto ExperienceRepository recibido dentro de la variable privada
         public ExperienceController(ExperienceRepository experienceRepository)
         {
             _experienceRepository = experienceRepository;
         }
 
+        //ENDPOINTS
+
+        // IActionResult es el tipo de dato que devuelve un método del controller.
+        // Sirve para que el controller pueda responder distintas cosas al cliente
         [HttpGet]
         public IActionResult Get([FromQuery] bool includeDeleted = false)
         {

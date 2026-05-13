@@ -5,13 +5,18 @@ namespace PortfolioAPI.Data.Repositories
 {
     public class ExperienceRepository
     {
+        // 1 - Se declara una variable privada y readonly que almacenará un objeto del tipo ApplicationContext
         private readonly ApplicationContext _context;
 
+        // 2 - El constructor recibe un objeto ApplicationContext mediante inyección de dependencias
+        //     y lo asigna a la variable privada _context para poder utilizarlo en toda la clase
         public ExperienceRepository(ApplicationContext context)
         {
             _context = context;
+            Console.WriteLine("instanciado");
         }
 
+        // Metodos de la clase ExperienceRepository
         public List<Experience> Get() 
         {
             return _context.Experiences.ToList();

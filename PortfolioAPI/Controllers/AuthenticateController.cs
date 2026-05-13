@@ -27,8 +27,6 @@ namespace PortfolioAPI.Controllers
             User? userAuthenticated = _userRepository.Authenticate(credentials.Username, credentials.Password);
             if (userAuthenticated is not null)
             {
-
-
                 var securityPassword = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config["Authentication:SecretForKey"])); //Traemos la SecretKey del Json. agregar antes: using Microsoft.IdentityModel.Tokens;
 
                 SigningCredentials signature = new SigningCredentials(securityPassword, SecurityAlgorithms.HmacSha256);

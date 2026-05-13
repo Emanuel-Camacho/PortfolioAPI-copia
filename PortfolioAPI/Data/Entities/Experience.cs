@@ -5,6 +5,7 @@ namespace PortfolioAPI.Data.Entities
 {
     public class Experience
     {
+        // decorador que indica a Id como clave primaria y genera automaticamente un Id que no se repite
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
