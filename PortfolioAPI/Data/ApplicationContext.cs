@@ -15,8 +15,10 @@ namespace PortfolioAPI.Data
         // linea necesaria para configurar el contexto
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
+        // se precarga un usuario para validar
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+        // HasData carga el usuario inicial
             modelBuilder.Entity<User>().HasData(
                 new User
                 {

@@ -10,6 +10,8 @@ namespace PortfolioAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+
     public class ExperienceController : ControllerBase
     {
         // 1 - Propiedad privada y de solo lectura del tipo de la clase que quiero inyectar;
@@ -41,7 +43,6 @@ namespace PortfolioAPI.Controllers
         }
 
 
-        [Authorize]
         [HttpPost]
         public IActionResult AddExperience([FromBody] ExperienceForCreationAndUpdateRequest requestdto)
         {
